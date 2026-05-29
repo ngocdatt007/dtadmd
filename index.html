@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LQ Community — Cộng Đồng Liên Quân Mobile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8933A;
+    --gold-light: #E8B86D;
+    --gold-dim: #8A5F1E;
+    --dark: #070A10;
+    --dark2: #0D1220;
+    --dark3: #111827;
+    --dark4: #1A2233;
+    --dark5: #222D40;
+    --panel: rgba(255,255,255,0.04);
+    --panel-border: rgba(200,147,58,0.18);
+    --text: #E8E0D0;
+    --text-muted: #8A95A8;
+    --text-dim: #5A6478;
+    --blue: #3D8EFF;
+    --blue-dim: #1A4A99;
+    --red: #E03030;
+    --green: #30B870;
+    --font-display: 'Rajdhani', sans-serif;
+    --font-body: 'Be Vietnam Pro', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark2); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+  /* ── UTILITY ── */
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+  .tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    padding: 2px 10px; border-radius: 999px; letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .tag-gold { background: rgba(200,147,58,0.18); color: var(--gold-light); border: 1px solid rgba(200,147,58,0.3); }
+  .tag-blue { background: rgba(61,142,255,0.15); color: #7EB8FF; border: 1px solid rgba(61,142,255,0.3); }
+  .tag-red  { background: rgba(224,48,48,0.15);  color: #FF8080; border: 1px solid rgba(224,48,48,0.3); }
+  .tag-green{ background: rgba(48,184,112,0.15); color: #70D4A0; border: 1px solid rgba(48,184,112,0.3); }
+  .tag-purple{background: rgba(140,90,220,0.15); color: #C090FF; border: 1px solid rgba(140,90,220,0.3); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-display); font-size: 15px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 10px 24px; border-radius: 4px; cursor: pointer;
+    text-decoration: none; border: none; transition: all 0.2s;
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, #C8933A 0%, #E8B86D 50%, #C8933A 100%);
+    color: #0D0800;
+  }
+  .btn-gold:hover { filter: brightness(1.12); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--gold-light);
+    border: 1px solid rgba(200,147,58,0.5);
+  }
+  .btn-outline:hover { background: rgba(200,147,58,0.1); border-color: var(--gold-light); }
+  .btn-dark {
+    background: var(--dark4); color: var(--text);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .btn-dark:hover { background: var(--dark5); }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+  }
+
+  .gold-line {
+    display: block; width: 40px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 28px; font-weight: 700;
+    color: #fff; letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .section-title span { color: var(--gold-light); }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none; z-index: 0; opacity: 0.5;
+  }
+
+  /* ══════════════════════════════════
+     NAV
+  ══════════════════════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(7,10,16,0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(200,147,58,0.15);
+  }
+  .nav-inner {
+    display: flex; align-items: center; gap: 0;
+    height: 64px;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; margin-right: 32px;
+  }
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-family: var(--font-display); font-weight: 700;
+    color: #0D0800;
+  }
+  .nav-logo-text {
+    font-family: var(--font-display); font-size: 20px; font-weight: 700;
+    color: var(--gold-light); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .nav-logo-sub { font-size: 9px; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; display: block; line-height: 1; }
+  .nav-links { display: flex; gap: 2px; flex: 1; }
+  .nav-link {
+    font-family: var(--font-display); font-size: 14px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    padding: 8px 14px; border-radius: 4px;
+    transition: all 0.18s; position: relative;
+  }
+  .nav-link:hover, .nav-link.active { color: var(--gold-light); }
+  .nav-link.active::after {
+    content: '';
+    position: absolute; bottom: 0; left: 14px; right: 14px; height: 2px;
+    background: var(--gold);
+  }
+  .nav-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+  .nav-search {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--dark4); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px; padding: 6px 12px;
+  }
+  .nav-search input {
+    background: none; border: none; outline: none;
+    color: var(--text); font-family: var(--font-body); font-size: 13px;
+    width: 160px;
+  }
+  .nav-search input::placeholder { color: var(--text-dim); }
+  .nav-bell {
+    width: 36px; height: 36px; border-radius: 4px;
+    background: var(--dark4); border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-muted); font-size: 18px;
+    position: relative; transition: all 0.18s;
+  }
+  .nav-bell:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+  .nav-bell .dot {
+    position: absolute; top: 7px; right: 7px;
+    width: 7px; height: 7px; border-radius: 50%; background: var(--red);
+    border: 1.5px solid var(--dark);
+  }
+  .nav-avatar {
+    width: 36px; height: 36px; border-radius: 4px;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 14px; font-weight: 700;
+    color: #0D0800; cursor: pointer;
+  }
+
+  /* ══════════════════════════════════
+     HERO
+  ══════════════════════════════════ */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(200,147,58,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 30% 30%, rgba(61,142,255,0.05) 0%, transparent 60%),
+      linear-gradient(180deg, #070A10 0%, #0D1220 50%, #070A10 100%);
+  }
+  /* Animated orbs */
+  .hero-orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite alternate;
+  }
+  .hero-orb1 { width: 500px; height: 500px; right: 5%; top: 10%; background: radial-gradient(circle, rgba(200,147,58,0.12) 0%, transparent 70%); }
+  .hero-orb2 { width: 300px; height: 300px; right: 25%; bottom: 15%; background: radial-gradient(circle, rgba(61,142,255,0.1) 0%, transparent 70%); animation-delay: -3s; }
+  @keyframes orbFloat { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(20px,-30px) scale(1.08); } }
+
+  /* Grid lines background */
+  .hero-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(200,147,58,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,147,58,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at 70% 50%, black 20%, transparent 70%);
+  }
+
+  .hero-content { position: relative; z-index: 1; padding-top: 64px; }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  }
+  .hero-eyebrow-line { flex: 1; max-width: 80px; height: 1px; background: linear-gradient(90deg, var(--gold-dim), transparent); }
+  .hero-badge {
+    font-family: var(--font-display); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 700; line-height: 0.95;
+    letter-spacing: -0.01em;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .hero-title .outline {
+    -webkit-text-stroke: 1.5px rgba(200,147,58,0.5);
+    color: transparent;
+  }
+  .hero-title .gold { color: var(--gold-light); }
+  .hero-subtitle {
+    font-size: 16px; color: var(--text-muted);
+    max-width: 480px; margin-bottom: 36px; line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 56px; }
+  .hero-stats {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  .hero-stat-num {
+    font-family: var(--font-display); font-size: 32px; font-weight: 700;
+    color: #fff; line-height: 1;
+  }
+  .hero-stat-num span { color: var(--gold-light); }
+  .hero-stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 4px; letter-spacing: 0.05em; }
+
+  /* Hero right panel – champion showcase */
+  .hero-right {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 50%; display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+  }
+  .hero-champ-frame {
+    position: relative; width: 380px; height: 520px;
+  }
+  .hero-champ-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(7,10,16,0.95) 90%);
+    z-index: 2;
+  }
+  .hero-champ-silhouette {
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 40%, rgba(200,147,58,0.15) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(200,147,58,0.08) 0%, rgba(61,142,255,0.05) 100%);
+    border: 1px solid rgba(200,147,58,0.12);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 120px; position: relative; overflow: hidden;
+  }
+  .hero-champ-silhouette::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
+    background: radial-gradient(ellipse at 50% 100%, rgba(200,147,58,0.25) 0%, transparent 70%);
+  }
+  .champ-emoji { font-size: 100px; filter: drop-shadow(0 0 40px rgba(200,147,58,0.4)); animation: champFloat 4s ease-in-out infinite; }
+  @keyframes champFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  .hero-champ-info {
+    position: absolute; bottom: 20px; left: 20px; right: 20px; z-index: 3;
+    background: rgba(13,18,32,0.9); border: 1px solid rgba(200,147,58,0.2);
+    border-radius: 6px; padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  /* ══════════════════════════════════
+     TICKER / NEWS STRIP
+  ══════════════════════════════════ */
+  .ticker {
+    background: var(--dark2); border-top: 1px solid rgba(200,147,58,0.15); border-bottom: 1px solid rgba(200,147,58,0.15);
+    padding: 10px 0; overflow: hidden;
+  }
+  .ticker-inner { display: flex; align-items: center; gap: 0; }
+  .ticker-label {
+    background: var(--gold); color: #0D0800;
+    font-family: var(--font-display); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 4px 16px; white-space: nowrap; flex-shrink: 0;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+    margin-right: 20px;
+  }
+  .ticker-scroll { display: flex; gap: 40px; animation: tickerScroll 28s linear infinite; white-space: nowrap; }
+  @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .ticker-item { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+  .ticker-item span { color: var(--gold-light); font-weight: 500; }
+  .ticker-sep { color: var(--gold-dim); }
+
+  /* ══════════════════════════════════
+     CHAMPIONS SECTION
+  ══════════════════════════════════ */
+  .section { padding: 80px 0; position: relative; }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; }
+
+  .champ-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+  .champ-filter {
+    font-family: var(--font-display); font-size: 13px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 4px; cursor: pointer;
+    background: var(--dark4); border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-muted); transition: all 0.18s;
+  }
+  .champ-filter:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+  .champ-filter.active { background: rgba(200,147,58,0.15); color: var(--gold-light); border-color: rgba(200,147,58,0.4); }
+
+  .champ-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+  .champ-card {
+    background: var(--dark3); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; overflow: hidden; cursor: pointer;
+    transition: all 0.25s; position: relative;
+  }
+  .champ-card:hover {
+    border-color: rgba(200,147,58,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(200,147,58,0.15);
+  }
+  .champ-img {
+    width: 100%; aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--dark4), var(--dark5));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 56px; position: relative; overflow: hidden;
+  }
+  .champ-img::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+    background: linear-gradient(transparent, var(--dark3));
+  }
+  .champ-tier {
+    position: absolute; top: 8px; right: 8px;
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 3px; letter-spacing: 0.05em;
+  }
+  .tier-s { background: rgba(200,147,58,0.3); color: var(--gold-light); border: 1px solid rgba(200,147,58,0.5); }
+  .tier-a { background: rgba(61,142,255,0.2); color: #7EB8FF; border: 1px solid rgba(61,142,255,0.4); }
+  .tier-b { background: rgba(140,90,220,0.2); color: #C090FF; border: 1px solid rgba(140,90,220,0.4); }
+  .champ-info { padding: 12px; }
+  .champ-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .champ-role { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .champ-winrate { position: absolute; bottom: 12px; right: 12px; font-size: 12px; font-weight: 600; }
+
+  /* ══════════════════════════════════
+     COMMUNITY FEED
+  ══════════════════════════════════ */
+  .feed-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
+
+  .post-card {
+    background: var(--dark3); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; padding: 20px; margin-bottom: 12px;
+    transition: border-color 0.18s;
+  }
+  .post-card:hover { border-color: rgba(200,147,58,0.2); }
+  .post-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .post-avatar {
+    width: 40px; height: 40px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 15px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .post-author { font-weight: 600; color: #fff; font-size: 14px; }
+  .post-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .post-rank {
+    margin-left: auto;
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 3px; letter-spacing: 0.05em;
+  }
+  .rank-challenger { background: rgba(200,147,58,0.2); color: var(--gold-light); border: 1px solid rgba(200,147,58,0.4); }
+  .rank-diamond { background: rgba(61,142,255,0.15); color: #90C8FF; border: 1px solid rgba(61,142,255,0.35); }
+  .rank-platinum { background: rgba(48,184,112,0.15); color: #70D4A0; border: 1px solid rgba(48,184,112,0.35); }
+  .post-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+  .post-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; }
+  .post-image {
+    width: 100%; height: 160px; border-radius: 6px;
+    background: var(--dark5); margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px; border: 1px solid rgba(255,255,255,0.05);
+  }
+  .post-footer { display: flex; align-items: center; gap: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .post-action {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--text-muted);
+    cursor: pointer; transition: color 0.15s; background: none; border: none;
+  }
+  .post-action:hover { color: var(--gold-light); }
+  .post-action svg { width: 16px; height: 16px; }
+
+  .poll-option { margin-bottom: 8px; }
+  .poll-bar-bg { height: 6px; background: var(--dark5); border-radius: 3px; margin-top: 4px; overflow: hidden; }
+  .poll-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--gold-dim), var(--gold-light)); transition: width 0.8s ease; }
+
+  /* SIDEBAR */
+  .sidebar-widget {
+    background: var(--dark3); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; padding: 18px; margin-bottom: 12px;
+  }
+  .widget-title {
+    font-family: var(--font-display); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold-light); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .widget-title::before { content: ''; display: block; width: 3px; height: 14px; background: var(--gold); border-radius: 2px; }
+
+  .leaderboard-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .leaderboard-row:last-child { border-bottom: none; }
+  .lb-rank { font-family: var(--font-display); font-size: 14px; font-weight: 700; width: 20px; text-align: center; }
+  .lb-rank.gold { color: var(--gold-light); }
+  .lb-rank.silver { color: #C0C0C0; }
+  .lb-rank.bronze { color: #CD7F32; }
+  .lb-avatar { width: 30px; height: 30px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; font-family: var(--font-display); }
+  .lb-name { flex: 1; font-size: 13px; font-weight: 500; color: #fff; }
+  .lb-pts { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--gold-light); }
+
+  .event-row { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 12px; }
+  .event-row:last-child { border-bottom: none; }
+  .event-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .event-name { font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 2px; }
+  .event-time { font-size: 11px; color: var(--text-muted); }
+
+  /* ══════════════════════════════════
+     RANKING SECTION
+  ══════════════════════════════════ */
+  .ranking-table { width: 100%; border-collapse: collapse; }
+  .ranking-table th {
+    font-family: var(--font-display); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+    padding: 10px 16px; text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .ranking-table td { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+  .ranking-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .rank-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-display); font-size: 12px; font-weight: 700;
+    padding: 4px 12px; border-radius: 3px;
+  }
+  .rank-badge.thach-dau { background: rgba(200,147,58,0.2); color: var(--gold-light); border: 1px solid rgba(200,147,58,0.4); }
+  .rank-badge.cao-thu    { background: rgba(61,142,255,0.15); color: #90C8FF; border: 1px solid rgba(61,142,255,0.35); }
+  .rank-badge.kim-cuong  { background: rgba(200,100,255,0.15); color: #D890FF; border: 1px solid rgba(200,100,255,0.35); }
+  .wr-bar { width: 80px; height: 4px; background: var(--dark5); border-radius: 2px; overflow: hidden; display: inline-block; margin-left: 8px; vertical-align: middle; }
+  .wr-fill { height: 100%; border-radius: 2px; }
+
+  /* ══════════════════════════════════
+     EVENTS SECTION
+  ══════════════════════════════════ */
+  .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .event-card {
+    background: var(--dark3); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; overflow: hidden; cursor: pointer;
+    transition: all 0.25s;
+  }
+  .event-card:hover { border-color: rgba(200,147,58,0.3); transform: translateY(-3px); }
+  .event-card.featured { grid-column: span 2; }
+  .event-thumb {
+    width: 100%; background: var(--dark5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative; overflow: hidden;
+  }
+  .event-thumb.featured-thumb { height: 200px; }
+  .event-thumb.normal-thumb  { height: 140px; }
+  .event-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(7,10,16,0.8) 100%);
+  }
+  .event-badge {
+    position: absolute; top: 12px; left: 12px; z-index: 1;
+  }
+  .event-body { padding: 16px; }
+  .event-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+  .event-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+  .event-footer { display: flex; align-items: center; justify-content: space-between; }
+  .event-date { font-size: 12px; color: var(--text-dim); }
+  .countdown {
+    display: flex; gap: 6px;
+  }
+  .cd-block { text-align: center; }
+  .cd-num { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: #fff; line-height: 1; display: block; }
+  .cd-lbl { font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .cd-sep { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--gold-dim); align-self: flex-start; margin-top: 0px; }
+
+  /* ══════════════════════════════════
+     FIND TEAM
+  ══════════════════════════════════ */
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .team-card {
+    background: var(--dark3); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; padding: 18px; transition: all 0.2s; cursor: pointer;
+  }
+  .team-card:hover { border-color: rgba(200,147,58,0.3); }
+  .team-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .team-av { width: 44px; height: 44px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .team-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; }
+  .team-caption { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+  .team-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .team-need { background: var(--dark5); border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; }
+  .team-need-lbl { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.05em; }
+  .role-badges { display: flex; gap: 6px; }
+  .role-badge {
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 3px;
+    font-family: var(--font-display); letter-spacing: 0.05em;
+  }
+  .role-open { background: rgba(48,184,112,0.15); color: #70D4A0; border: 1px solid rgba(48,184,112,0.35); }
+  .role-filled { background: var(--dark4); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.06); }
+
+  /* ══════════════════════════════════
+     FOOTER
+  ══════════════════════════════════ */
+  footer {
+    background: var(--dark2);
+    border-top: 1px solid rgba(200,147,58,0.12);
+    padding: 48px 0 24px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .footer-brand p { font-size: 14px; color: var(--text-muted); margin-top: 12px; max-width: 280px; line-height: 1.7; }
+  .footer-disclaimer {
+    margin-top: 14px;
+    background: rgba(200,147,58,0.07); border: 1px solid rgba(200,147,58,0.15);
+    border-radius: 6px; padding: 10px 14px;
+    font-size: 12px; color: var(--text-dim); line-height: 1.6;
+  }
+  .footer-col-title {
+    font-family: var(--font-display); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-light);
+    margin-bottom: 16px;
+  }
+  .footer-link { display: block; font-size: 13px; color: var(--text-muted); text-decoration: none; margin-bottom: 8px; transition: color 0.15s; }
+  .footer-link:hover { color: var(--text); }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-copy { font-size: 12px; color: var(--text-dim); }
+  .social-links { display: flex; gap: 10px; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 6px;
+    background: var(--dark4); border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; cursor: pointer; text-decoration: none;
+    transition: all 0.18s;
+  }
+  .social-btn:hover { border-color: rgba(200,147,58,0.4); background: rgba(200,147,58,0.1); }
+
+  /* ══════════════════════════════════
+     ANIMATIONS
+  ══════════════════════════════════ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.6s ease both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+
+  /* ══════════════════════════════════
+     MOBILE RESPONSIVE
+  ══════════════════════════════════ */
+  @media (max-width: 900px) {
+    .hero-right { display: none; }
+    .feed-layout { grid-template-columns: 1fr; }
+    .events-grid { grid-template-columns: 1fr; }
+    .event-card.featured { grid-column: span 1; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .nav-search { display: none; }
+  }
+  @media (max-width: 600px) {
+    .champ-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 42px; }
+    .hero-stats { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">⚔</div>
+        <div>
+          <div class="nav-logo-text">LQ Community</div>
+          <span class="nav-logo-sub">Fan-made · Phi thương mại</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="#heroes"  class="nav-link active">Tướng</a>
+        <a href="#feed"    class="nav-link">Cộng đồng</a>
+        <a href="#ranking" class="nav-link">Bảng xếp hạng</a>
+        <a href="#events"  class="nav-link">Sự kiện</a>
+        <a href="#team"    class="nav-link">Tìm đồng đội</a>
+        <a href="#"        class="nav-link">Hướng dẫn</a>
+      </div>
+      <div class="nav-actions">
+        <div class="nav-search">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:#5A6478"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" placeholder="Tìm tướng, bài viết...">
+        </div>
+        <div class="nav-bell">
+          🔔
+          <span class="dot"></span>
+        </div>
+        <div class="nav-avatar">VN</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-orb hero-orb1"></div>
+  <div class="hero-orb hero-orb2"></div>
+
+  <div class="container" style="position:relative;z-index:1;padding-top:100px;padding-bottom:80px;width:100%;">
+    <div style="max-width:580px;">
+      <div class="hero-eyebrow fade-up">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-badge">⚔ Mùa 35 · Đang diễn ra</span>
+      </div>
+      <h1 class="hero-title fade-up delay-1">
+        Cộng<br>
+        <span class="gold">Đồng</span><br>
+        <span class="outline">Liên Quân</span>
+      </h1>
+      <p class="hero-subtitle fade-up delay-2">
+        Nơi hội tụ của các chiến binh. Chia sẻ kinh nghiệm, xây dựng đội hình, leo rank cùng 128,000+ thành viên mỗi ngày.
+      </p>
+      <div class="hero-actions fade-up delay-3">
+        <a href="#feed" class="btn btn-gold">⚔ Tham gia cộng đồng</a>
+        <a href="#heroes" class="btn btn-outline">📖 Khám phá tướng</a>
+      </div>
+      <div class="hero-stats fade-up delay-4">
+        <div>
+          <div class="hero-stat-num">128<span>K</span></div>
+          <div class="hero-stat-lbl">Thành viên</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">4.2<span>K</span></div>
+          <div class="hero-stat-lbl">Bài viết / ngày</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">312</div>
+          <div class="hero-stat-lbl">Đội hoạt động</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">98<span>%</span></div>
+          <div class="hero-stat-lbl">Hài lòng</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating champion -->
+  <div class="hero-right">
+    <div class="hero-champ-frame">
+      <div class="hero-champ-bg"></div>
+      <div class="hero-champ-silhouette">
+        <div class="champ-emoji">🗡️</div>
+      </div>
+      <div class="hero-champ-info">
+        <div>
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;">Florentino</div>
+          <div style="font-size:12px;color:var(--text-muted);">Đấu Sĩ · Rừng</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:#70D4A0;">57%</div>
+          <div style="font-size:11px;color:var(--text-muted);">Tỉ lệ thắng</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker">
+  <div class="container">
+    <div class="ticker-inner">
+      <div class="ticker-label">🔴 Live</div>
+      <div style="overflow:hidden;flex:1;">
+        <div class="ticker-scroll">
+          <span class="ticker-item"><span>Patch 32.1</span> · Florentino buff +10% sát thương <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Thách Đấu</span> · NightViper vừa vượt 1500 điểm <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Sự kiện</span> · Liên Server Mùa 35 còn 5 ngày <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Mới</span> · Skin Florentino Rồng Hỏa ra mắt tuần tới <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Nerf</span> · Thane giảm 8% AP, Grakk giảm 5% HP <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Giải đấu</span> · Cộng Đồng Cup #8 mở đăng ký <span class="ticker-sep">·</span></span>
+          <!-- Duplicate for seamless loop -->
+          <span class="ticker-item"><span>Patch 32.1</span> · Florentino buff +10% sát thương <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Thách Đấu</span> · NightViper vừa vượt 1500 điểm <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Sự kiện</span> · Liên Server Mùa 35 còn 5 ngày <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Mới</span> · Skin Florentino Rồng Hỏa ra mắt tuần tới <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Nerf</span> · Thane giảm 8% AP, Grakk giảm 5% HP <span class="ticker-sep">·</span></span>
+          <span class="ticker-item"><span>Giải đấu</span> · Cộng Đồng Cup #8 mở đăng ký <span class="ticker-sep">·</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHAMPIONS ══ -->
+<section class="section" id="heroes">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="gold-line"></span>
+        <h2 class="section-title">Danh Sách <span>Tướng</span></h2>
+        <p style="font-size:14px;color:var(--text-muted);margin-top:6px;">Tổng hợp sức mạnh, winrate và hướng dẫn mùa 35</p>
+      </div>
+      <a href="#" class="btn btn-outline" style="font-size:13px;padding:8px 18px;">Xem tất cả →</a>
+    </div>
+
+    <div class="champ-filters">
+      <button class="champ-filter active" onclick="filterChamps(this,'all')">Tất cả</button>
+      <button class="champ-filter" onclick="filterChamps(this,'rung')">🌲 Rừng</button>
+      <button class="champ-filter" onclick="filterChamps(this,'giua')">⚡ Đường giữa</button>
+      <button class="champ-filter" onclick="filterChamps(this,'xa')">🏹 Xạ thủ</button>
+      <button class="champ-filter" onclick="filterChamps(this,'do')">🛡️ Đỡ đòn</button>
+      <button class="champ-filter" onclick="filterChamps(this,'ho')">✨ Hỗ trợ</button>
+      <button class="champ-filter" onclick="filterChamps(this,'chien')">⚔️ Chiến binh</button>
+    </div>
+
+    <div class="champ-grid" id="champGrid">
+      <!-- Champions are rendered by JS below -->
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMMUNITY FEED ══ -->
+<section class="section" id="feed" style="background:var(--dark2);border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="gold-line"></span>
+        <h2 class="section-title">Cộng Đồng <span>Chia Sẻ</span></h2>
+      </div>
+    </div>
+
+    <div class="feed-layout">
+      <!-- FEED -->
+      <div>
+        <!-- Compose -->
+        <div class="post-card" style="margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="post-avatar" style="background:rgba(200,147,58,0.2);color:var(--gold-light);">VN</div>
+            <div style="flex:1;background:var(--dark5);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:11px 16px;cursor:text;color:var(--text-dim);font-size:14px;">
+              Chia sẻ kinh nghiệm, build đồ, hoặc tìm đồng đội...
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.05);">
+            <button class="btn btn-dark" style="font-size:12px;padding:6px 14px;font-family:var(--font-body);text-transform:none;letter-spacing:0;">📸 Ảnh/Video</button>
+            <button class="btn btn-dark" style="font-size:12px;padding:6px 14px;font-family:var(--font-body);text-transform:none;letter-spacing:0;">📊 Thăm dò</button>
+            <button class="btn btn-dark" style="font-size:12px;padding:6px 14px;font-family:var(--font-body);text-transform:none;letter-spacing:0;">🏆 Khoe rank</button>
+            <button class="btn btn-gold" style="margin-left:auto;font-size:13px;padding:7px 20px;">Đăng</button>
+          </div>
+        </div>
+
+        <!-- Filter tabs -->
+        <div style="display:flex;gap:6px;margin-bottom:16px;">
+          <button class="champ-filter active" style="font-size:12px;padding:5px 14px;">🔥 Nổi bật</button>
+          <button class="champ-filter" style="font-size:12px;padding:5px 14px;">🕐 Mới nhất</button>
+          <button class="champ-filter" style="font-size:12px;padding:5px 14px;">📖 Hướng dẫn</button>
+          <button class="champ-filter" style="font-size:12px;padding:5px 14px;">👥 Tìm team</button>
+        </div>
+
+        <!-- Post 1 -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-avatar" style="background:rgba(48,184,112,0.2);color:#70D4A0;">TP</div>
+            <div>
+              <div class="post-author">Tí Tướng Pro</div>
+              <div class="post-meta">2 giờ trước · <span class="tag tag-green" style="font-size:10px;">Hướng dẫn</span></div>
+            </div>
+            <span class="post-rank rank-challenger" style="margin-left:auto;">⚔ Thách Đấu</span>
+          </div>
+          <div class="post-title">Build đồ Florentino rừng mùa 35 — Leo từ Kim Cương lên Thách Đấu trong 2 tuần</div>
+          <div class="post-body">Sau 200+ trận Florentino rừng, mình xin chia sẻ bộ đồ tối ưu nhất hiện tại. Cách lên đồ sẽ phụ thuộc vào đội hình địch nhưng core items là bắt buộc. Kèm theo lộ trình ganking và cách teamfight hiệu quả nhất...</div>
+          <div class="post-image">🗡️</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+            <span class="tag tag-gold">#Florentino</span>
+            <span class="tag tag-blue">#Build đồ</span>
+            <span class="tag tag-green">#Leo rank</span>
+          </div>
+          <div class="post-footer">
+            <button class="post-action">❤️ <span>342</span></button>
+            <button class="post-action">💬 <span>87 bình luận</span></button>
+            <button class="post-action">↗️ <span>Chia sẻ</span></button>
+            <button class="post-action" style="margin-left:auto;">🔖 Lưu</button>
+          </div>
+        </div>
+
+        <!-- Post 2 - Poll -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-avatar" style="background:rgba(224,48,48,0.2);color:#FF8080;">BK</div>
+            <div>
+              <div class="post-author">Boss_Kaya</div>
+              <div class="post-meta">5 giờ trước · <span class="tag tag-red" style="font-size:10px;">Thảo luận</span></div>
+            </div>
+            <span class="post-rank rank-diamond" style="margin-left:auto;">💎 Kim Cương</span>
+          </div>
+          <div class="post-title">Meta mùa 35: Tướng nào đang bị nerf nặng nhất theo bạn?</div>
+          <div class="post-body">Patch mới ra làm nhiều tướng yếu đi đáng kể. Theo mình Thane bị hit nặng nhất vì giảm cả AS lẫn HP. Còn bạn nghĩ sao?</div>
+          <!-- Poll -->
+          <div style="background:var(--dark5);border-radius:6px;padding:14px;margin-bottom:14px;">
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">📊 1,247 lượt bình chọn</div>
+            <div class="poll-option">
+              <div style="display:flex;justify-content:space-between;font-size:13px;"><span>Thane</span><strong>38%</strong></div>
+              <div class="poll-bar-bg"><div class="poll-bar-fill" style="width:38%;"></div></div>
+            </div>
+            <div class="poll-option">
+              <div style="display:flex;justify-content:space-between;font-size:13px;"><span>Grakk</span><strong>29%</strong></div>
+              <div class="poll-bar-bg"><div class="poll-bar-fill" style="width:29%;background:linear-gradient(90deg,#1A4A99,#3D8EFF);"></div></div>
+            </div>
+            <div class="poll-option">
+              <div style="display:flex;justify-content:space-between;font-size:13px;"><span>Aleister</span><strong>21%</strong></div>
+              <div class="poll-bar-bg"><div class="poll-bar-fill" style="width:21%;background:linear-gradient(90deg,#6B2299,#9B52DD);"></div></div>
+            </div>
+            <div class="poll-option">
+              <div style="display:flex;justify-content:space-between;font-size:13px;"><span>Tướng khác</span><strong>12%</strong></div>
+              <div class="poll-bar-bg"><div class="poll-bar-fill" style="width:12%;background:linear-gradient(90deg,#0F6E56,#1D9E75);"></div></div>
+            </div>
+          </div>
+          <div class="post-footer">
+            <button class="post-action">❤️ <span>194</span></button>
+            <button class="post-action">💬 <span>112 bình luận</span></button>
+            <button class="post-action">↗️ Chia sẻ</button>
+          </div>
+        </div>
+
+        <!-- Post 3 - Find team -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-avatar" style="background:rgba(61,142,255,0.2);color:#7EB8FF;">QN</div>
+            <div>
+              <div class="post-author">Quỷ_Nhỏ_1412</div>
+              <div class="post-meta">6 giờ trước · <span class="tag tag-purple" style="font-size:10px;">Tìm đồng đội</span></div>
+            </div>
+            <span class="post-rank rank-platinum" style="margin-left:auto;">🟢 Tinh Anh I</span>
+          </div>
+          <div class="post-title">🔍 Tìm 2 người leo rank — Cần Đỡ Đòn + Xạ Thủ</div>
+          <div class="post-body">Rank Tinh Anh I, mục tiêu Bạch Kim cuối mùa. Thường chơi tối 9–11h, cuối tuần cả ngày. Cần người bình tĩnh, không flame. Main Rừng, chơi được cả Giữa. Miền Nam, ping thấp.</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+            <span class="tag tag-blue">Miền Nam</span>
+            <span class="tag tag-green">Có Discord</span>
+            <span class="tag tag-gold">Kỷ luật cao</span>
+          </div>
+          <div class="post-footer">
+            <button class="post-action">❤️ <span>56</span></button>
+            <button class="post-action">💬 <span>23 bình luận</span></button>
+            <button class="btn btn-gold" style="margin-left:auto;font-size:12px;padding:6px 16px;">👥 Tham gia</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <!-- Leaderboard -->
+        <div class="sidebar-widget">
+          <div class="widget-title">Bảng Xếp Hạng</div>
+          <div class="leaderboard-row">
+            <span class="lb-rank gold">1</span>
+            <div class="lb-avatar" style="background:rgba(200,147,58,0.2);color:var(--gold-light);">NV</div>
+            <span class="lb-name">NightViper</span>
+            <span class="lb-pts">1,528</span>
+          </div>
+          <div class="leaderboard-row">
+            <span class="lb-rank silver">2</span>
+            <div class="lb-avatar" style="background:rgba(61,142,255,0.2);color:#7EB8FF;">SK</div>
+            <span class="lb-name">SkyKnight99</span>
+            <span class="lb-pts">1,491</span>
+          </div>
+          <div class="leaderboard-row">
+            <span class="lb-rank bronze">3</span>
+            <div class="lb-avatar" style="background:rgba(140,90,220,0.2);color:#C090FF;">QA</div>
+            <span class="lb-name">Queen_Ana</span>
+            <span class="lb-pts">1,445</span>
+          </div>
+          <div class="leaderboard-row">
+            <span class="lb-rank" style="color:var(--text-muted);">4</span>
+            <div class="lb-avatar" style="background:rgba(48,184,112,0.2);color:#70D4A0;">DB</div>
+            <span class="lb-name">DragonBlade</span>
+            <span class="lb-pts">1,402</span>
+          </div>
+          <div class="leaderboard-row">
+            <span class="lb-rank" style="color:var(--text-muted);">5</span>
+            <div class="lb-avatar" style="background:rgba(224,48,48,0.2);color:#FF8080;">WF</div>
+            <span class="lb-name">WolfFang</span>
+            <span class="lb-pts">1,378</span>
+          </div>
+          <a href="#ranking" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:12px;font-size:12px;padding:8px;">Xem đầy đủ →</a>
+        </div>
+
+        <!-- Events -->
+        <div class="sidebar-widget">
+          <div class="widget-title">Sự Kiện</div>
+          <div class="event-row">
+            <div class="event-dot" style="background:var(--red);"></div>
+            <div>
+              <div class="event-name">Liên Server Mùa 35</div>
+              <div class="event-time">🔴 Đang diễn ra · Còn 5 ngày</div>
+            </div>
+          </div>
+          <div class="event-row">
+            <div class="event-dot" style="background:var(--gold);"></div>
+            <div>
+              <div class="event-name">Vòng quay tướng miễn phí</div>
+              <div class="event-time">⏳ Còn 12 ngày</div>
+            </div>
+          </div>
+          <div class="event-row">
+            <div class="event-dot" style="background:var(--blue);"></div>
+            <div>
+              <div class="event-name">Cộng Đồng Cup #8</div>
+              <div class="event-time">📢 Mở đăng ký</div>
+            </div>
+          </div>
+          <div class="event-row">
+            <div class="event-dot" style="background:var(--green);"></div>
+            <div>
+              <div class="event-name">Skin Rồng Hỏa ra mắt</div>
+              <div class="event-time">🔜 Còn 7 ngày</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="sidebar-widget">
+          <div class="widget-title">Chủ Đề Hot</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="tag tag-gold">#Leo rank</span>
+            <span class="tag tag-blue">#Meta ADC</span>
+            <span class="tag tag-gold">#Skin mới</span>
+            <span class="tag tag-green">#Tướng OP</span>
+            <span class="tag tag-red">#Nerf Buff</span>
+            <span class="tag tag-blue">#Build đồ</span>
+            <span class="tag tag-purple">#5vs5</span>
+            <span class="tag tag-green">#Chiến thuật</span>
+            <span class="tag tag-gold">#Florentino</span>
+            <span class="tag tag-blue">#Đường giữa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RANKING ══ -->
+<section class="section" id="ranking">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="gold-line"></span>
+        <h2 class="section-title">Bảng Xếp Hạng <span>Tướng</span></h2>
+        <p style="font-size:14px;color:var(--text-muted);margin-top:6px;">Winrate · Pick rate · Tỉ lệ cấm — cập nhật theo patch mới nhất</p>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="champ-filter active" style="font-size:12px;padding:5px 14px;">Tất cả</button>
+        <button class="champ-filter" style="font-size:12px;padding:5px 14px;">Rừng</button>
+        <button class="champ-filter" style="font-size:12px;padding:5px 14px;">Đường giữa</button>
+        <button class="champ-filter" style="font-size:12px;padding:5px 14px;">Xạ thủ</button>
+      </div>
+    </div>
+
+    <div class="panel" style="overflow-x:auto;">
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th style="width:40px;">#</th>
+            <th>Tướng</th>
+            <th>Vai trò</th>
+            <th>Hạng</th>
+            <th>Winrate</th>
+            <th>Pick rate</th>
+            <th>Ban rate</th>
+            <th>Tier</th>
+          </tr>
+        </thead>
+        <tbody id="rankingTable"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EVENTS ══ -->
+<section class="section" id="events" style="background:var(--dark2);border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="gold-line"></span>
+        <h2 class="section-title">Sự Kiện <span>Nổi Bật</span></h2>
+      </div>
+      <a href="#" class="btn btn-outline" style="font-size:13px;padding:8px 18px;">Xem tất cả →</a>
+    </div>
+
+    <div style="background:var(--dark3);border:1px solid rgba(200,147,58,0.2);border-radius:8px;padding:24px;margin-bottom:16px;display:flex;align-items:center;gap:32px;">
+      <div style="font-size:72px;flex-shrink:0;">⚔️</div>
+      <div style="flex:1;">
+        <span class="tag tag-red" style="margin-bottom:10px;display:inline-block;">🔴 Đang diễn ra</span>
+        <h3 style="font-family:var(--font-display);font-size:26px;font-weight:700;color:#fff;margin-bottom:8px;">Liên Server Mùa 35 — Đại Chiến Vương Quốc</h3>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">Các server tranh tài quyết liệt. Top 100 người chơi mỗi server sẽ được tham gia vòng loại chính thức với phần thưởng skin độc quyền và danh hiệu đặc biệt.</p>
+        <a href="#" class="btn btn-gold">Xem chi tiết →</a>
+      </div>
+      <div style="flex-shrink:0;text-align:center;">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Kết thúc sau</div>
+        <div class="countdown">
+          <div class="cd-block"><span class="cd-num" id="days">05</span><span class="cd-lbl">Ngày</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block"><span class="cd-num" id="hours">14</span><span class="cd-lbl">Giờ</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block"><span class="cd-num" id="mins">32</span><span class="cd-lbl">Phút</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block"><span class="cd-num" id="secs">47</span><span class="cd-lbl">Giây</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card" style="cursor:pointer;">
+        <div class="event-thumb normal-thumb" style="background:linear-gradient(135deg,#0D1220,#1A2D4A);">
+          <div style="position:relative;z-index:1;font-size:56px;">🏹</div>
+          <span class="event-badge tag tag-blue">Mới ra mắt</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">Skin Rồng Hỏa — Florentino</div>
+          <div class="event-desc">Bộ trang phục giới hạn chỉ có trong tháng này, kèm hiệu ứng đặc biệt</div>
+          <div class="event-footer"><span class="event-date">📅 Ra mắt sau 7 ngày</span></div>
+        </div>
+      </div>
+      <div class="event-card" style="cursor:pointer;">
+        <div class="event-thumb normal-thumb" style="background:linear-gradient(135deg,#1A0D2A,#2D1A4A);">
+          <div style="position:relative;z-index:1;font-size:56px;">🏆</div>
+          <span class="event-badge tag tag-purple">Đăng ký mở</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">Cộng Đồng Cup #8</div>
+          <div class="event-desc">Giải đấu cộng đồng lớn nhất năm — 16 đội tham dự, giải thưởng hấp dẫn</div>
+          <div class="event-footer"><span class="event-date">📅 Bắt đầu 15/06/2026</span></div>
+        </div>
+      </div>
+      <div class="event-card" style="cursor:pointer;">
+        <div class="event-thumb normal-thumb" style="background:linear-gradient(135deg,#0D1A10,#1A3020);">
+          <div style="position:relative;z-index:1;font-size:56px;">🎁</div>
+          <span class="event-badge tag tag-green">Miễn phí</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">Vòng quay tướng miễn phí</div>
+          <div class="event-desc">Nhận ngẫu nhiên 1 trong 20 tướng hiếm. Mỗi tài khoản 1 lần</div>
+          <div class="event-footer"><span class="event-date">⏳ Còn 12 ngày</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FIND TEAM ══ -->
+<section class="section" id="team">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="gold-line"></span>
+        <h2 class="section-title">Tìm <span>Đồng Đội</span></h2>
+        <p style="font-size:14px;color:var(--text-muted);margin-top:6px;">Ghép cặp theo rank, server, múi giờ chơi</p>
+      </div>
+      <button class="btn btn-gold" style="font-size:13px;padding:8px 20px;">+ Đăng tìm team</button>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-header">
+          <div class="team-av" style="background:rgba(200,147,58,0.15);">⚔️</div>
+          <div>
+            <div class="team-name">Alpha Squad</div>
+            <div class="team-caption">Thách Đấu · 3/5 thành viên</div>
+          </div>
+          <span class="tag tag-red" style="margin-left:auto;">Cần gấp</span>
+        </div>
+        <div class="team-tags">
+          <span class="tag tag-gold">Miền Nam</span>
+          <span class="tag tag-blue">Discord</span>
+          <span class="tag tag-green">Tối 8-12h</span>
+        </div>
+        <div class="team-need">
+          <div class="team-need-lbl">Vị trí cần:</div>
+          <div class="role-badges">
+            <span class="role-badge role-open">Xạ Thủ</span>
+            <span class="role-badge role-open">Hỗ Trợ</span>
+          </div>
+        </div>
+        <button class="btn btn-gold" style="width:100%;justify-content:center;font-size:13px;padding:9px;">Xin gia nhập</button>
+      </div>
+
+      <div class="team-card">
+        <div class="team-header">
+          <div class="team-av" style="background:rgba(61,142,255,0.15);">🛡️</div>
+          <div>
+            <div class="team-name">Iron Wall</div>
+            <div class="team-caption">Kim Cương · 4/5 thành viên</div>
+          </div>
+        </div>
+        <div class="team-tags">
+          <span class="tag tag-blue">Miền Bắc</span>
+          <span class="tag tag-purple">Cuối tuần</span>
+        </div>
+        <div class="team-need">
+          <div class="team-need-lbl">Vị trí cần:</div>
+          <div class="role-badges">
+            <span class="role-badge role-open">Rừng</span>
+            <span class="role-badge role-filled">Giữa ✓</span>
+            <span class="role-badge role-filled">Trên ✓</span>
+          </div>
+        </div>
+        <button class="btn btn-outline" style="width:100%;justify-content:center;font-size:13px;padding:9px;">Xin gia nhập</button>
+      </div>
+
+      <div class="team-card">
+        <div class="team-header">
+          <div class="team-av" style="background:rgba(140,90,220,0.15);">⚡</div>
+          <div>
+            <div class="team-name">Thunder Strike</div>
+            <div class="team-caption">Tinh Anh · 2/5 thành viên</div>
+          </div>
+          <span class="tag tag-green" style="margin-left:auto;">Mới thành lập</span>
+        </div>
+        <div class="team-tags">
+          <span class="tag tag-gold">Toàn quốc</span>
+          <span class="tag tag-blue">Discord + Zalo</span>
+        </div>
+        <div class="team-need">
+          <div class="team-need-lbl">Vị trí cần:</div>
+          <div class="role-badges">
+            <span class="role-badge role-open">Trên</span>
+            <span class="role-badge role-open">Đỡ Đòn</span>
+            <span class="role-badge role-open">Hỗ Trợ</span>
+          </div>
+        </div>
+        <button class="btn btn-outline" style="width:100%;justify-content:center;font-size:13px;padding:9px;">Xin gia nhập</button>
+      </div>
+
+      <div class="team-card" style="border:1px dashed rgba(200,147,58,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:240px;cursor:pointer;">
+        <div style="font-size:36px;margin-bottom:12px;">➕</div>
+        <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--gold-light);margin-bottom:6px;">Tạo đội mới</div>
+        <div style="font-size:13px;color:var(--text-muted);">Lập đội và tìm thành viên phù hợp</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+          <div class="nav-logo-icon">⚔</div>
+          <div>
+            <div class="nav-logo-text">LQ Community</div>
+            <span class="nav-logo-sub">Fan-made · Phi thương mại</span>
+          </div>
+        </div>
+        <p>Website cộng đồng do người hâm mộ xây dựng và vận hành. Hoàn toàn miễn phí, không có quảng cáo.</p>
+        <div class="footer-disclaimer">
+          ⚠️ Đây là website phi thương mại, được tạo bởi fan. Liên Quân Mobile là thương hiệu thuộc Garena và Tencent Games. Website này không liên kết với nhà phát hành chính thức.
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Chuyên mục</div>
+        <a href="#heroes"  class="footer-link">Danh sách tướng</a>
+        <a href="#feed"    class="footer-link">Cộng đồng</a>
+        <a href="#ranking" class="footer-link">Bảng xếp hạng</a>
+        <a href="#events"  class="footer-link">Sự kiện</a>
+        <a href="#team"    class="footer-link">Tìm đồng đội</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Hướng dẫn</div>
+        <a href="#" class="footer-link">Build đồ mới nhất</a>
+        <a href="#" class="footer-link">Meta tướng mùa 35</a>
+        <a href="#" class="footer-link">Cách leo rank hiệu quả</a>
+        <a href="#" class="footer-link">Tướng cho người mới</a>
+        <a href="#" class="footer-link">Chiến thuật đội hình</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Kết nối</div>
+        <a href="#" class="footer-link">Facebook Group</a>
+        <a href="#" class="footer-link">Discord Server</a>
+        <a href="#" class="footer-link">YouTube Channel</a>
+        <a href="#" class="footer-link">TikTok</a>
+        <a href="#" class="footer-link">Liên hệ Admin</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 LQ Community — Fan-made, phi thương mại. Made with ❤️ by cộng đồng Việt Nam.</span>
+      <div class="social-links">
+        <a href="#" class="social-btn" title="Facebook">📘</a>
+        <a href="#" class="social-btn" title="Discord">💬</a>
+        <a href="#" class="social-btn" title="YouTube">▶️</a>
+        <a href="#" class="social-btn" title="TikTok">🎵</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Champion Data ──
+const champions = [
+  { name:'Florentino', role:'Đấu Sĩ', lane:'rung',  emoji:'🗡️', tier:'S', wr:57, color:'#C8933A' },
+  { name:'Tulen',      role:'Pháp Sư', lane:'giua', emoji:'⚡', tier:'S', wr:54, color:'#3D8EFF' },
+  { name:'Yorn',       role:'Xạ Thủ', lane:'xa',   emoji:'🏹', tier:'S', wr:52, color:'#30B870' },
+  { name:'Baldum',     role:'Đỡ Đòn', lane:'do',   emoji:'🛡️', tier:'A', wr:51, color:'#8C5ADC' },
+  { name:'Annette',    role:'Hỗ Trợ', lane:'ho',   emoji:'✨', tier:'A', wr:50, color:'#DC5A8C' },
+  { name:'Veres',      role:'Sát Thủ',lane:'rung', emoji:'🌑', tier:'A', wr:49, color:'#5A8CDC' },
+  { name:'Thane',      role:'Chiến Binh',lane:'chien',emoji:'⚔️',tier:'B',wr:45,color:'#8C6A3C'},
+  { name:'Grakk',      role:'Đỡ Đòn', lane:'do',   emoji:'🔱', tier:'B', wr:44, color:'#6AAC6A' },
+  { name:'Aleister',   role:'Pháp Sư', lane:'giua', emoji:'🔮', tier:'B', wr:46, color:'#9C6ACC' },
+  { name:'Violet',     role:'Xạ Thủ', lane:'xa',   emoji:'🔫', tier:'A', wr:50, color:'#CC6A8C' },
+  { name:'Laville',    role:'Xạ Thủ', lane:'xa',   emoji:'🎯', tier:'S', wr:53, color:'#CC8A3C' },
+  { name:'Zata',       role:'Sát Thủ', lane:'rung', emoji:'🌀', tier:'A', wr:48, color:'#3CAACC' },
+];
+
+function renderChamps(filter = 'all') {
+  const grid = document.getElementById('champGrid');
+  const filtered = filter === 'all' ? champions : champions.filter(c => c.lane === filter);
+  grid.innerHTML = filtered.map((c,i) => `
+    <div class="champ-card" style="animation:fadeUp 0.4s ease ${i*0.05}s both;">
+      <div class="champ-img">
+        <span style="font-size:60px;position:relative;z-index:1;">${c.emoji}</span>
+        <span class="champ-tier tier-${c.tier.toLowerCase()}">${c.tier}</span>
+      </div>
+      <div class="champ-info">
+        <div class="champ-name">${c.name}</div>
+        <div class="champ-role">${c.role}</div>
+        <span class="champ-winrate" style="color:${c.wr>=52?'#70D4A0':c.wr>=48?'#E8B86D':'#FF8080'}">${c.wr}%</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterChamps(btn, filter) {
+  document.querySelectorAll('.champ-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderChamps(filter);
+}
+
+renderChamps();
+
+// ── Ranking Table ──
+const rankData = [
+  { name:'Florentino', emoji:'🗡️', role:'Rừng',       rank:'thach-dau', rankLabel:'Thách Đấu', wr:57, pick:18, ban:32, tier:'S' },
+  { name:'Laville',    emoji:'🎯', role:'Xạ Thủ',     rank:'thach-dau', rankLabel:'Thách Đấu', wr:53, pick:22, ban:28, tier:'S' },
+  { name:'Tulen',      emoji:'⚡', role:'Đường Giữa', rank:'thach-dau', rankLabel:'Thách Đấu', wr:54, pick:15, ban:25, tier:'S' },
+  { name:'Yorn',       emoji:'🏹', role:'Xạ Thủ',     rank:'cao-thu',   rankLabel:'Cao Thủ',   wr:52, pick:20, ban:18, tier:'S' },
+  { name:'Baldum',     emoji:'🛡️', role:'Đỡ Đòn',    rank:'cao-thu',   rankLabel:'Cao Thủ',   wr:51, pick:12, ban:10, tier:'A' },
+  { name:'Violet',     emoji:'🔫', role:'Xạ Thủ',     rank:'cao-thu',   rankLabel:'Cao Thủ',   wr:50, pick:16, ban:14, tier:'A' },
+  { name:'Zata',       emoji:'🌀', role:'Rừng',       rank:'kim-cuong', rankLabel:'Kim Cương',  wr:48, pick:10, ban: 8, tier:'A' },
+  { name:'Aleister',   emoji:'🔮', role:'Đường Giữa', rank:'kim-cuong', rankLabel:'Kim Cương',  wr:46, pick: 8, ban: 6, tier:'B' },
+  { name:'Thane',      emoji:'⚔️', role:'Chiến Binh', rank:'kim-cuong', rankLabel:'Kim Cương',  wr:45, pick: 7, ban: 5, tier:'B' },
+  { name:'Grakk',      emoji:'🔱', role:'Đỡ Đòn',    rank:'kim-cuong', rankLabel:'Kim Cương',  wr:44, pick: 6, ban: 4, tier:'B' },
+];
+
+const tierColor = { S:'#E8B86D', A:'#7EB8FF', B:'#C090FF' };
+document.getElementById('rankingTable').innerHTML = rankData.map((r,i) => `
+  <tr>
+    <td style="font-family:var(--font-display);font-size:15px;font-weight:700;color:${i<3?['#E8B86D','#C0C0C0','#CD7F32'][i]:'var(--text-muted)'};">${i+1}</td>
+    <td>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:6px;background:var(--dark5);display:flex;align-items:center;justify-content:center;font-size:20px;">${r.emoji}</div>
+        <span style="font-weight:600;color:#fff;">${r.name}</span>
+      </div>
+    </td>
+    <td style="font-size:13px;color:var(--text-muted);">${r.role}</td>
+    <td><span class="rank-badge ${r.rank}">${r.rankLabel}</span></td>
+    <td>
+      <span style="font-family:var(--font-display);font-weight:700;color:${r.wr>=52?'#70D4A0':r.wr>=48?'#E8B86D':'#FF8080'};">${r.wr}%</span>
+      <span class="wr-bar"><span style="display:block;height:100%;border-radius:2px;width:${r.wr}%;background:${r.wr>=52?'#1D9E75':r.wr>=48?'#C8933A':'#E03030'};"></span></span>
+    </td>
+    <td style="font-size:13px;color:var(--text-muted);">${r.pick}%</td>
+    <td style="font-size:13px;color:var(--text-muted);">${r.ban}%</td>
+    <td><span style="font-family:var(--font-display);font-size:14px;font-weight:700;color:${tierColor[r.tier]};">${r.tier}</span></td>
+  </tr>
+`).join('');
+
+// ── Countdown Timer ──
+const endDate = new Date();
+endDate.setDate(endDate.getDate() + 5);
+endDate.setHours(endDate.getHours() + 14);
+
+function updateCountdown() {
+  const now  = new Date();
+  const diff = endDate - now;
+  if (diff <= 0) return;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000)  / 60000);
+  const s = Math.floor((diff % 60000)    / 1000);
+  document.getElementById('days').textContent  = String(d).padStart(2,'0');
+  document.getElementById('hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('mins').textContent  = String(m).padStart(2,'0');
+  document.getElementById('secs').textContent  = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── Nav active on scroll ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(l => {
+    l.classList.remove('active');
+    if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
